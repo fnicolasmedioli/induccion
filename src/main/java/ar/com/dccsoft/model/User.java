@@ -23,4 +23,44 @@ public class User {
 
     @ManyToMany(mappedBy = "users")
     private List<Group> groups;
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Group getDefaultgroup() {
+        return defaultgroup;
+    }
+
+    public void setDefaultgroup(Group defaultgroup) {
+        this.defaultgroup = defaultgroup;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
 }
