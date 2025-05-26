@@ -19,4 +19,7 @@ public class Operation {
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private OperationType type;
+
+    @ManyToMany(mappedBy = "operations")
+    private Group group;
 }

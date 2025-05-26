@@ -18,7 +18,7 @@ public class Group {
     private String description;
 
     @OneToMany(mappedBy = "defaultgroup")
-    private User user;
+    private List<User> defaultGroupUsers;
 
     @ManyToMany
     @JoinTable(
@@ -27,5 +27,13 @@ public class Group {
         inverseJoinColumns = @JoinColumn(name = "userid")
     )
     private List<User> users;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Permissions",
+            joinColumns = @JoinColumn(name = "groupid"),
+            inverseJoinColumns = @JoinColumn(name = "operationid")
+    )
+    private List<Operation> operations;
 
 }

@@ -21,6 +21,6 @@ public class User {
     @JoinColumn(name = "defaultgroupid")
     private Group defaultgroup;
 
-    @ManyToMany(mappedBy = "cursos")
+    @ManyToMany(mappedBy = "users")
     private List<Group> groups;
 }
