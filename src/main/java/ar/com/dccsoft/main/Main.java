@@ -1,6 +1,8 @@
 package ar.com.dccsoft.main;
 
 import javax.persistence.*;
+
+import ar.com.dccsoft.dao.UserDAO;
 import ar.com.dccsoft.model.Group;
 import ar.com.dccsoft.model.Operation;
 import ar.com.dccsoft.model.User;
@@ -67,6 +69,7 @@ public class Main {
             em.close();
             return;
         }
+        em.close();
 
         System.out.println("Datos generados");
     }
@@ -76,9 +79,21 @@ public class Main {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadPersistenciaInduccion");
 
-        generarDatos(true, emf);
+        generarDatos(false, emf);
+
+        UserDAO userDAO = new UserDAO(emf.createEntityManager());
 
 
+        List<User> usersHQL = userDAO.queryEjemploHQL();
+        List<User> usersProg = userDAO.queryEjemploProgramatico("Operacion_B");
+
+        System.out.println("Query HQL");
+        usersHQL.forEach(System.out::println);
+
+        System.out.println("Query prog");
+        usersProg.forEach(System.out::println);
+
+        emf.close();
 
     }
 }
