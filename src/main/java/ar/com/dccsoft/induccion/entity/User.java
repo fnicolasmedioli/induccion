@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +30,6 @@ public class User {
     private Group defaultgroup;
 
     @ManyToMany(mappedBy = "users")
-    private List<Group> groups;
+    private Set<Group> groups;
 
 }

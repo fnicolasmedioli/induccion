@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "`groups`")
@@ -26,7 +27,7 @@ public class Group {
     private String description;
 
     @OneToMany(mappedBy = "defaultgroup")
-    private List<User> defaultGroupUsers;
+    private Set<User> defaultGroupUsers;
 
     @ManyToMany
     @JoinTable(
@@ -34,7 +35,7 @@ public class Group {
             joinColumns = @JoinColumn(name = "groupid"),
             inverseJoinColumns = @JoinColumn(name = "userid")
     )
-    private List<User> users;
+    private Set<User> users;
 
     @ManyToMany
     @JoinTable(
@@ -42,5 +43,5 @@ public class Group {
             joinColumns = @JoinColumn(name = "groupid"),
             inverseJoinColumns = @JoinColumn(name = "operationid")
     )
-    private List<Operation> operations;
+    private Set<Operation> operations;
 }

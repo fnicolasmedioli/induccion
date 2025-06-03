@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>listado</title>
+</head>
+<body>
+<h2>Usuarios:</h2>
+<ul>
+    <li th:each="user : ${users}">
+        <span th:text="${user.login}">Login</span>
+        <ul>
+            <li>
+                <ul>
+                    <li th:each="group : ${user.groups}">
+                        <span th:text="${group.name}">Grupo</span>
+                        <ul>
+                            <li th:each="op : ${group.operations}" th:text="${op.name}">Permiso</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+</body>
+</html>

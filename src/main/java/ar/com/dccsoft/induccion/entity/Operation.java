@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "operations")
@@ -33,6 +34,6 @@ public class Operation {
     private OperationType type;
 
     @ManyToMany(mappedBy = "operations")
-    private List<Group> groups;
+    private Set<Group> groups;
 
 }

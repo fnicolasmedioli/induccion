@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 public class DataSeeder {
@@ -37,26 +38,26 @@ public class DataSeeder {
         op3.setDescription("Exportación de datos");
         op3.setType(Operation.OperationType.C);
 
-        operations.addAll(List.of(op1, op2, op3));
+        operations.addAll(Set.of(op1, op2, op3));
     }
 
     private void seedGroups() {
         Group admins = new Group();
         admins.setName("Admins");
         admins.setDescription("Administradores del sistema");
-        admins.setOperations(List.of(operations.get(0), operations.get(1), operations.get(2)));
+        admins.setOperations(Set.of(operations.get(0), operations.get(1), operations.get(2)));
 
         Group mods = new Group();
         mods.setName("Mods");
         mods.setDescription("Moderadores");
-        mods.setOperations(List.of(operations.get(1), operations.get(2)));
+        mods.setOperations(Set.of(operations.get(1), operations.get(2)));
 
         Group usuarios = new Group();
         usuarios.setName("Usuarios");
         usuarios.setDescription("Usuarios generales");
-        usuarios.setOperations(List.of(operations.get(2)));
+        usuarios.setOperations(Set.of(operations.get(2)));
 
-        groups.addAll(List.of(admins, mods, usuarios));
+        groups.addAll(Set.of(admins, mods, usuarios));
     }
 
     private void seedUsers() {
@@ -68,34 +69,34 @@ public class DataSeeder {
         admin.setLogin("admin");
         admin.setPassword("admin123");
         //admin.setDefaultgroup(admins);
-        admin.setGroups(List.of(admins, mods));
+        admin.setGroups(Set.of(admins, mods));
 
         User user1 = new User();
         user1.setLogin("user1");
         user1.setPassword("user1_123");
         //user1.setDefaultgroup(usuarios);
-        user1.setGroups(List.of(usuarios));
+        user1.setGroups(Set.of(usuarios));
 
         User user2 = new User();
         user2.setLogin("user2");
         user2.setPassword("user2_123");
         //user2.setDefaultgroup(usuarios);
-        user2.setGroups(List.of(usuarios, mods));
+        user2.setGroups(Set.of(usuarios, mods));
 
         User mod = new User();
         mod.setLogin("mod");
         mod.setPassword("mod123");
         //mod.setDefaultgroup(mods);
-        mod.setGroups(List.of(mods, usuarios));
+        mod.setGroups(Set.of(mods, usuarios));
 
-        admins.setUsers(List.of(admin));
-        mods.setUsers(List.of(admin, mod, user2));
-        usuarios.setUsers(List.of(user1, user2, mod));
+        admins.setUsers(Set.of(admin));
+        mods.setUsers(Set.of(admin, mod, user2));
+        usuarios.setUsers(Set.of(user1, user2, mod));
 
-        admins.setDefaultGroupUsers(List.of(admin));
-        mods.setDefaultGroupUsers(List.of(mod));
-        usuarios.setDefaultGroupUsers(List.of(user1, user2));
+        admins.setDefaultGroupUsers(Set.of(admin));
+        mods.setDefaultGroupUsers(Set.of(mod));
+        usuarios.setDefaultGroupUsers(Set.of(user1, user2));
 
-        users.addAll(List.of(admin, user1, user2, mod));
+        users.addAll(Set.of(admin, user1, user2, mod));
     }
 }
