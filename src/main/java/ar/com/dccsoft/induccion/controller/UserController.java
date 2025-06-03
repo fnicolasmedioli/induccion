@@ -1,4 +1,4 @@
-package ar.com.dccsoft.induccion.controllers;
+package ar.com.dccsoft.induccion.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

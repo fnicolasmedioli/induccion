@@ -1,9 +1,10 @@
-package ar.com.dccsoft.induccion.entities;
+package ar.com.dccsoft.induccion.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -12,11 +13,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class GroupEntity {
+public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int groupid;
+    private Long groupid;
 
     @Column(name = "name")
     private String name;
@@ -25,7 +26,7 @@ public class GroupEntity {
     private String description;
 
     @OneToMany(mappedBy = "defaultgroup")
-    private List<UserEntity> defaultGroupUsers;
+    private List<User> defaultGroupUsers;
 
     @ManyToMany
     @JoinTable(
@@ -33,7 +34,7 @@ public class GroupEntity {
             joinColumns = @JoinColumn(name = "groupid"),
             inverseJoinColumns = @JoinColumn(name = "userid")
     )
-    private List<UserEntity> users;
+    private List<User> users;
 
     @ManyToMany
     @JoinTable(
@@ -41,5 +42,5 @@ public class GroupEntity {
             joinColumns = @JoinColumn(name = "groupid"),
             inverseJoinColumns = @JoinColumn(name = "operationid")
     )
-    private List<OperationEntity> operations;
+    private List<Operation> operations;
 }

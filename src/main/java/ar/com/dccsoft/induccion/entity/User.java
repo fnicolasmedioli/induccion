@@ -1,4 +1,4 @@
-package ar.com.dccsoft.induccion.entities;
+package ar.com.dccsoft.induccion.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,11 +12,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class UserEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userid;
+    private Long userid;
 
     @Column(name = "login")
     private String login;
@@ -26,9 +26,9 @@ public class UserEntity {
 
     @ManyToOne
     @JoinColumn(name = "defaultgroupid")
-    private GroupEntity defaultgroup;
+    private Group defaultgroup;
 
     @ManyToMany(mappedBy = "users")
-    private List<GroupEntity> groups;
+    private List<Group> groups;
 
 }

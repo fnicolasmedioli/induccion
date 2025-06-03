@@ -1,4 +1,4 @@
-package ar.com.dccsoft.induccion.entities;
+package ar.com.dccsoft.induccion.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class OperationEntity {
+public class Operation {
 
     public enum OperationType {
         A, B, C
@@ -20,7 +20,7 @@ public class OperationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int operationid;
+    private Long operationid;
 
     @Column(name = "name")
     private String name;
@@ -33,6 +33,6 @@ public class OperationEntity {
     private OperationType type;
 
     @ManyToMany(mappedBy = "operations")
-    private List<GroupEntity> groups;
+    private List<Group> groups;
 
 }

@@ -8,8 +8,6 @@ public class InduccionApplication {
 
 	public static void main(String[] args) {
 
-		
-
 		SpringApplication.run(InduccionApplication.class, args);
 	}
 }
