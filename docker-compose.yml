@@ -3,7 +3,7 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: db_induccion
-      MYSQL_ROOT_PASSWORD: ${INDUCCION_DB_PW}
+      MYSQL_ROOT_PASSWORD: ${INDUCCION_ROOT_PW}
     ports:
       - "3306:3306"
     volumes:
