@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(path = "users")
@@ -22,12 +23,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("list")
-    public String getListado(Model model) {
-
-        model.addAttribute("users", userService.getFullUsers());
-        return "users/list";
-    }
 
     @GetMapping("create")
     public String getCreateUser() {
@@ -38,7 +33,7 @@ public class UserController {
     public String postCreateUser(
             @Valid UserRequest userReq,
             BindingResult validation,
-            Model model
+            RedirectAttributes redirectAttributes
     ) {
 
         if (validation.hasErrors()) {
@@ -47,17 +42,13 @@ public class UserController {
 
         userService.createUser(userReq);
 
-        model.addAttribute("success", true);
-        return "users/create";
+        redirectAttributes.addFlashAttribute("success", true);
+        return "redirect:/users/create";
     }
 
-    @ExceptionHandler({
-            UserAlreadyExistsException.class,
-            InvalidFormException.class
-    })
-    public String handleUserAlreadyExists(DomainException err, Model model) {
-        model.addAttribute("error", err.getMessage());
-        return "users/create";
+    @ExceptionHandler(DomainException.class)
+    public String handleError(DomainException err, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("error", err.getMessage());
+        return "redirect:/users/create";
     }
-
 }

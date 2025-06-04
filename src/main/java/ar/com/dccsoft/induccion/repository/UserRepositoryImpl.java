@@ -26,6 +26,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         userRoot.fetch("groups", JoinType.LEFT);
 
         cq.select(userRoot).distinct(true);
+        cq.orderBy(cb.asc(userRoot.get("login")));
 
         return entityManager.createQuery(cq).getResultList();
     }

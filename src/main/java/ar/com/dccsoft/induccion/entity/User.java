@@ -28,6 +28,7 @@ public class User {
     private Group defaultgroup;
 
     @ManyToMany(mappedBy = "users")
+    @OrderBy("name ASC")
     private Set<Group> groups;
 
 }

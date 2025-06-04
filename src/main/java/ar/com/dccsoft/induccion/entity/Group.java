@@ -35,6 +35,7 @@ public class Group {
             joinColumns = @JoinColumn(name = "groupid"),
             inverseJoinColumns = @JoinColumn(name = "userid")
     )
+    @OrderBy("login ASC")
     private Set<User> users;
 
     @ManyToMany
@@ -43,5 +44,6 @@ public class Group {
             joinColumns = @JoinColumn(name = "groupid"),
             inverseJoinColumns = @JoinColumn(name = "operationid")
     )
+    @OrderBy("name ASC")
     private Set<Operation> operations;
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Permissions</title>
+    <script>
+
+    function eliminarPermiso(groupid, operationid) {
+
+        fetch("/api/permissions", {
+            method: "DELETE",
+            body: JSON.stringify({groupid, operationid}),
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(response => {
+                location.reload();
+            })
+            .catch(err => {
+                alert("No se pudo eliminar");
+            });
+    }
+
+</script>
+
+</head>
+<body>
+<a href="/">Home</a>
+<h2>Permissons:</h2>
+
+
+<ul>
+    <li th:each="group : ${groups}">
+        <span th:text="${group.name}">Grupo desconocido</span>
+        <ul th:each="operation : ${group.operations}">
+            <li>
+                <span th:text="${operation.name}">Operacion desconocida</span>
+                <button th:onclick="'eliminarPermiso(' + ${group.groupid} + ',' + ${operation.operationid} + ')'">Eliminar</button>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+</body>
+</html>
