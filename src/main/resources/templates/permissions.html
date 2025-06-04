@@ -24,6 +24,27 @@
 
 </script>
 
+    <style>
+        .alert {
+            padding: 13px 7px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+
 </head>
 <body>
 <a href="/">Home</a>
@@ -42,6 +63,43 @@
     </li>
 </ul>
 
+<form action="" method="POST">
+<fieldset>
+
+        <legend>Agregar permiso</legend>
+        <label for="selectGroup">Grupo:</label>
+    <select name="groupid" id="selectGroup">
+
+        <option value="" disabled selected>Grupo</option>
+        <option
+            th:each="group : ${groups}"
+            th:value="${group.groupid}"
+            th:text="${group.name}"
+        >
+        </option>
+    </select>
+
+    <label for="selectOpereation">Operación:</label>
+
+        <select name="operationid" id="selectOpereation">
+            <option value="" disabled selected>Operación</option>
+            <option th:each="operation : ${operations}"
+                    th:value="${operation.operationid}"
+                    th:text="${operation.name}">
+            </option>
+        </select>
+
+    <button type="submit">Agregar</button>
+</fieldset>
+</form>
+
+<div th:if="${success}" class="alert success">
+    <p>Permiso agregado exitosamente</p>
+</div>
+
+<div th:if="${error}" class="alert error">
+    <p th:text="${error}">Error</p>
+</div>
 
 </body>
 </html>

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -29,6 +30,11 @@ public class GroupService {
 
     public List<Group> listGroupsWithOperations() {
         return groupRepository.getGroupsWithOperations();
+    }
+
+    public Group getGroupById(Long groupid) {
+        Optional<Group> group = this.groupRepository.findById(groupid);
+        return group.orElse(null);
     }
 
 }
