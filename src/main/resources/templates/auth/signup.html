@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Crear usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+        <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Home</a>
+
+        <h1 class="text-2xl font-bold mb-6 text-center">Crear usuario</h1>
+
+        <form action="" method="POST">
+            <div class="flex flex-col gap-4">
+                <label for="loginInput" class="font-medium">login:</label>
+                <input type="text" id="loginInput" name="login"
+                    class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <label for="passwordInput" class="font-medium">password:</label>
+                <input type="password" id="passwordInput" name="password"
+                    class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <button type="submit"
+                    class="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition">Crear</button>
+            </div>
+        </form>
+
+        <div th:if="${success}" class="alert success mt-4 text-green-700">
+            <p>Usuario creado exitosamente</p>
+        </div>
+
+        <div th:if="${error}" class="alert error mt-4 text-red-700">
+            <p th:text="${error}">Error</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

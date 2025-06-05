@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Inicio</title>
-    </head>
-    <body>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-    <div style="display: flex; flex-direction: column;">
+<head>
+    <meta charset="UTF-8" />
+    <title>Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
 
-        <a href="/users/create">Creación de Usuario</a>
-        <a href="/groups">Gestión de Grupos</a>
-        <a href="/permissions">Gestión de Permisos</a>
-        <br>
-        <a href="/list">Listado completo</a>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md text-center">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Panel público</h1>
+
+        <div class="flex flex-col gap-4">
+
+            <a href="/groups" class="text-blue-600 hover:underline font-medium text-lg">Gestión de Grupos</a>
+            <a href="/permissions" class="text-blue-600 hover:underline font-medium text-lg">Gestión de Permisos</a>
+            <a href="/list" class="text-blue-600 hover:underline font-medium text-lg">Listado completo</a>
+            <a href="/auth/signup" class="text-blue-600 hover:underline font-medium text-lg">Signup</a>
+            <a href="/auth/login" class="text-blue-600 hover:underline font-medium text-lg">Login</a>
+
+        </div>
     </div>
+</body>
 
-    </body>
 </html>

@@ -1,105 +1,84 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
-    <title>Permissions</title>
+    <meta charset="UTF-8" />
+    <title>Permisos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script>
-
-    function eliminarPermiso(groupid, operationid) {
-
-        fetch("/api/permissions", {
-            method: "DELETE",
-            body: JSON.stringify({groupid, operationid}),
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-            .then(response => {
-                location.reload();
+        function eliminarPermiso(groupid, operationid) {
+            fetch("/api/permissions", {
+                method: "DELETE",
+                body: JSON.stringify({ groupid, operationid }),
+                headers: {
+                    "Content-Type": "application/json"
+                },
             })
-            .catch(err => {
-                alert("No se pudo eliminar");
-            });
-    }
-
-</script>
-
-    <style>
-        .alert {
-            padding: 13px 7px;
-            margin: 20px 0;
-            border-radius: 4px;
-            font-weight: bold;
+                .then(response => {
+                    location.reload();
+                })
+                .catch(err => {
+                    alert("No se pudo eliminar");
+                });
         }
-
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-    </style>
-
+    </script>
 </head>
-<body>
-<a href="/">Home</a>
-<h2>Permissons:</h2>
 
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-2xl bg-white p-8 rounded-lg shadow-md">
+        <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Home</a>
 
-<ul>
-    <li th:each="group : ${groups}">
-        <span th:text="${group.name}">Grupo desconocido</span>
-        <ul th:each="operation : ${group.operations}">
-            <li>
-                <span th:text="${operation.name}">Operacion desconocida</span>
-                <button th:onclick="'eliminarPermiso(' + ${group.groupid} + ',' + ${operation.operationid} + ')'">Eliminar</button>
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Permisos</h2>
+
+        <ul class="space-y-4 mb-8">
+            <li th:each="group : ${groups}" class="bg-gray-50 rounded-lg border p-4">
+                <span th:text="${group.name}" class="text-xl font-semibold text-blue-700">Grupo desconocido</span>
+                <ul class="mt-2 ml-4 list-disc list-inside">
+                    <li th:each="operation : ${group.operations}"
+                        class="flex items-center justify-between text-gray-700">
+                        <span th:text="${operation.name}">Operación desconocida</span>
+                        <button
+                            th:onclick="'eliminarPermiso(' + ${group.groupid} + ',' + ${operation.operationid} + ')'"
+                            class="ml-4 text-red-600 hover:underline text-sm">Eliminar</button>
+                    </li>
+                </ul>
             </li>
         </ul>
-    </li>
-</ul>
 
-<form action="" method="POST">
-<fieldset>
+        <h3 class="text-xl font-semibold mb-4 text-gray-700">Agregar permiso</h3>
+        <form action="" method="POST" class="flex flex-col gap-4">
+            <div>
+                <label for="selectGroup" class="font-medium">Grupo:</label>
+                <select name="groupid" id="selectGroup"
+                    class="w-full mt-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <option value="" disabled selected>Seleccione un grupo</option>
+                    <option th:each="group : ${groups}" th:value="${group.groupid}" th:text="${group.name}">
+                    </option>
+                </select>
+            </div>
+            <div>
+                <label for="selectOpereation" class="font-medium">Operación:</label>
+                <select name="operationid" id="selectOpereation"
+                    class="w-full mt-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <option value="" disabled selected>Seleccione una operación</option>
+                    <option th:each="operation : ${operations}" th:value="${operation.operationid}"
+                        th:text="${operation.name}">
+                    </option>
+                </select>
+            </div>
+            <div th:if="${success}" class="alert success mt-4 text-green-700">
+                <p>Usuario creado exitosamente</p>
+            </div>
 
-        <legend>Agregar permiso</legend>
-        <label for="selectGroup">Grupo:</label>
-    <select name="groupid" id="selectGroup">
-
-        <option value="" disabled selected>Grupo</option>
-        <option
-            th:each="group : ${groups}"
-            th:value="${group.groupid}"
-            th:text="${group.name}"
-        >
-        </option>
-    </select>
-
-    <label for="selectOpereation">Operación:</label>
-
-        <select name="operationid" id="selectOpereation">
-            <option value="" disabled selected>Operación</option>
-            <option th:each="operation : ${operations}"
-                    th:value="${operation.operationid}"
-                    th:text="${operation.name}">
-            </option>
-        </select>
-
-    <button type="submit">Agregar</button>
-</fieldset>
-</form>
-
-<div th:if="${success}" class="alert success">
-    <p>Permiso agregado exitosamente</p>
-</div>
-
-<div th:if="${error}" class="alert error">
-    <p th:text="${error}">Error</p>
-</div>
-
+            <div th:if="${error}" class="alert error mt-4 text-red-700">
+                <p th:text="${error}">Error</p>
+            </div>
+            <button type="submit"
+                class="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition">Agregar</button>
+        </form>
+    </div>
 </body>
+
 </html>

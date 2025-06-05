@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
-    <title>listado completo</title>
+    <meta charset="UTF-8" />
+    <title>Listado completo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<body>
-<a href="/">Home</a>
-<h2>Usuarios:</h2>
-<ul>
-    <li th:each="user : ${users}">
-        <strong  th:text="${user.login}">Login</strong>
-        <ul th:if="${user.groups}">
-            <li th:each="group : ${user.groups}">
-                Grupo: <span th:text="${group.name}">Grupo</span>
-                <ul th:if="${group.operations}">
-                    <li th:each="op : ${group.operations}" th:text="${op.name}">Permiso</li>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-3xl bg-white p-8 rounded-lg shadow-md">
+        <a href="/" class="text-blue-600 hover:underline mb-6 inline-block">&larr; Home</a>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Usuarios</h2>
+
+        <ul class="space-y-6">
+            <li th:each="user : ${users}" class="bg-gray-50 border rounded-lg p-4 shadow-sm">
+                <strong th:text="${user.login}" class="text-lg text-blue-700">Login</strong>
+
+                <ul th:if="${user.groups}" class="mt-2 ml-4 list-disc list-inside space-y-2">
+                    <li th:each="group : ${user.groups}">
+                        <span class="font-semibold text-gray-700">Grupo:</span>
+                        <span th:text="${group.name}" class="text-gray-800">Grupo</span>
+
+                        <ul th:if="${group.operations}" class="mt-1 ml-6 list-disc list-inside text-sm text-gray-600">
+                            <li th:each="op : ${group.operations}" th:text="${op.name}">Permiso</li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
         </ul>
-    </li>
-</ul>
-
-
+    </div>
 </body>
+
 </html>
