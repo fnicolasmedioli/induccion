@@ -57,7 +57,9 @@ public class DataSeeder {
         usuarios.setDescription("Usuarios generales");
         usuarios.setOperations(Set.of(operations.get(2)));
 
-        groups.addAll(Set.of(admins, mods, usuarios));
+        groups.add(admins);
+        groups.add(mods);
+        groups.add(usuarios);
     }
 
     private void seedUsers() {
@@ -68,30 +70,33 @@ public class DataSeeder {
         User admin = new User();
         admin.setLogin("admin");
         admin.setPassword("admin123");
-        //admin.setDefaultgroup(admins);
-        admin.setGroups(Set.of(admins, mods));
+        admin.setDefaultgroup(admins);
+        admin.setGroups(new java.util.HashSet<>());
+        admin.addGroup(admins);
+        admin.addGroup(mods);
 
         User user1 = new User();
         user1.setLogin("user1");
         user1.setPassword("user1_123");
-        //user1.setDefaultgroup(usuarios);
-        user1.setGroups(Set.of(usuarios));
+        user1.setDefaultgroup(usuarios);
+        user1.setGroups(new java.util.HashSet<>());
+        user1.addGroup(usuarios);
 
         User user2 = new User();
         user2.setLogin("user2");
         user2.setPassword("user2_123");
-        //user2.setDefaultgroup(usuarios);
-        user2.setGroups(Set.of(usuarios, mods));
+        user2.setDefaultgroup(usuarios);
+        user2.setGroups(new java.util.HashSet<>());
+        user2.addGroup(usuarios);
+        user2.addGroup(mods);
 
         User mod = new User();
         mod.setLogin("mod");
         mod.setPassword("mod123");
-        //mod.setDefaultgroup(mods);
-        mod.setGroups(Set.of(mods, usuarios));
-
-        admins.setUsers(Set.of(admin));
-        mods.setUsers(Set.of(admin, mod, user2));
-        usuarios.setUsers(Set.of(user1, user2, mod));
+        mod.setDefaultgroup(mods);
+        mod.setGroups(new java.util.HashSet<>());
+        mod.addGroup(mods);
+        mod.addGroup(usuarios);
 
         admins.setDefaultGroupUsers(Set.of(admin));
         mods.setDefaultGroupUsers(Set.of(mod));

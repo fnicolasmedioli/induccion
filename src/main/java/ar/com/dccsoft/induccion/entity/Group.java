@@ -46,4 +46,25 @@ public class Group {
     )
     @OrderBy("name ASC")
     private Set<Operation> operations;
+
+    public void addUser(User user) {
+        if (users == null) {
+            users = new java.util.HashSet<>();
+        }
+        users.add(user);
+        if (user.getGroups() == null) {
+            user.setGroups(new java.util.HashSet<>());
+        }
+        user.getGroups().add(this);
+    }
+
+    public void removeUser(User user) {
+        if (users != null) {
+            users.remove(user);
+        }
+        if (user.getGroups() != null) {
+            user.getGroups().remove(this);
+        }
+    }
+
 }

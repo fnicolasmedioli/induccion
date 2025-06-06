@@ -27,8 +27,28 @@ public class User {
     @JoinColumn(name = "defaultgroupid")
     private Group defaultgroup;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     @OrderBy("name ASC")
     private Set<Group> groups;
+
+    public void addGroup(Group group) {
+        if (groups == null) {
+            groups = new java.util.HashSet<>();
+        }
+        groups.add(group);
+        if (group.getUsers() == null) {
+            group.setUsers(new java.util.HashSet<>());
+        }
+        group.getUsers().add(this);
+    }
+
+    public void removeGroup(Group group) {
+        if (groups != null) {
+            groups.remove(group);
+        }
+        if (group.getUsers() != null) {
+            group.getUsers().remove(this);
+        }
+    }
 
 }

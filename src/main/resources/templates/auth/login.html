@@ -17,7 +17,7 @@
     <form action="" method="POST" class="flex flex-col gap-4">
         <div>
             <label for="loginInput" class="block text-gray-700 font-medium mb-1">Usuario:</label>
-            <input type="text" id="loginInput" name="login"
+            <input type="text" id="loginInput" name="username"
                    class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
 
@@ -33,8 +33,8 @@
         </button>
     </form>
 
-    <div th:if="${error}" class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
-        <p th:text="${error}">Credenciales inválidas</p>
+    <div th:if="${param.error}" class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
+        <p>Credenciales inválidas</p>
     </div>
 
 </div>

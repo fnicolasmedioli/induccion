@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script>
         function eliminarPermiso(groupid, operationid) {
-            fetch("/api/permissions", {
+            fetch("/gestion/api/permissions", {
                 method: "DELETE",
                 body: JSON.stringify({ groupid, operationid }),
                 headers: {

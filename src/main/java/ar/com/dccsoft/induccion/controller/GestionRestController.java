@@ -5,17 +5,15 @@ import ar.com.dccsoft.induccion.exception.DomainException;
 import ar.com.dccsoft.induccion.service.PermissionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/permissions")
+@RequestMapping("/gestion/api/permissions")
 @AllArgsConstructor
-public class PermissionRestController {
+public class GestionRestController {
 
     private final PermissionService permissionService;
 
@@ -24,20 +22,19 @@ public class PermissionRestController {
             @RequestBody PermissionRequest permissionRequest
     ) {
 
-        permissionService.deletePermission(permissionRequest);
+        try {
+            permissionService.deletePermission(permissionRequest);
+        } catch (DomainException err) {
+
+            Map<String, Boolean> result = new HashMap<>();
+            result.put("success", false);
+
+            return ResponseEntity.ok(result);
+        }
 
         Map<String, Boolean> result = new HashMap<>();
         result.put("success", true);
 
         return ResponseEntity.ok(result);
     }
-
-    @ExceptionHandler(DomainException.class)
-    public ResponseEntity<Map<String, Boolean>> handleError(DomainException err) {
-        Map<String, Boolean> result = new HashMap<>();
-        result.put("success", false);
-
-        return ResponseEntity.ok(result);
-    }
-
 }

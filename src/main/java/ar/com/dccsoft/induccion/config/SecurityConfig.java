@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -20,8 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasRole("aa")
-                        .requestMatchers("/user/**").hasAnyRole("bb", "aa")
+                        .requestMatchers("/gestion", "/gestion/**").hasRole("Admins")
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
@@ -34,7 +34,8 @@ public class SecurityConfig {
                         .logoutUrl("/auth/logout")
                         .logoutSuccessUrl("/")
                         .permitAll()
-                );
+                )
+                .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
